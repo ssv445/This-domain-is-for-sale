@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charSet="utf-8" />
+    <title>This domain is for sale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<script type="text/javascript">
+    const defaultEmail = 'shyam@readybytes.in';
+    const defaultPrice = '100';
+    const defaultCurrency = 'USD';
+    const domains = [
+        {
+            'domain': 'coinswappy.com',
+            'name': 'CoinSwappy.com',
+            'description': 'Coins, Swapping, Bartering',
+            'link': 'https://coinswappy.com',
+        },
+        {
+            'domain': 'localvocal.in',
+            'name': 'LocalVocal.in',
+            'description': 'Local Business, Vocal',
+            'link': 'https://localvocal.in',
+        },
+        {
+            'domain': '0mrr.com',
+            'name': '0MRR.com',
+            'description': 'Any products which attract indie hackers',
+            'link': 'https://0mrr.com',
+        },
+        {
+            'domain': 'ecomitram.org',
+            'name': 'EcoMitram.org',
+            'description': 'Eco Projects, Climate Community',
+            'link': 'https://ecomitram.org',
+            'price': '1000',
+        },
+        {
+            'domain': 'epotli.com',
+            'name': 'ePotli.com',
+            'description': 'eCommerce',
+            'link': 'https://epotli.com',
+            'price': '1000',
+        },
+        {
+            'domain': 'bizital.in',
+            'name': 'Bizital.in',
+            'description': 'New Age Business, Digital Business etc.',
+            'link': 'https://bizital.in',
+            'price': '1000',
+        },
+        {
+            'domain': 'joomlaxi.com',
+            'name': 'Joomlaxi.com',
+            'description': 'Joomla Domain',
+            'link': 'https://joomlaxi.com',
+        },
+        {
+            'domain': 'aaispais.com',
+            'name': 'AaisPais.com',
+            'description': '---',
+            'link': 'https://aaispais.com',
+        },
+        {
+            'domain': 'sahabhagi.com',
+            'name': 'SahaBhagi.com',
+            'description': 'Community Websites',
+            'link': 'https://sahabhagi.com',
+        }
+    ];
+
+    function getCurrentDomainName() {
+        console.log('Current Domain: ' + window.location.hostname);
+        return window.location.hostname || domains[0].domain;
+    }
+
+    function getCurrentDomain() {
+        const currentDomain = getCurrentDomainName();
+        return domains.find(domain => domain.domain === currentDomain);
+    }
+
+    function getOtherDomains() {
+        const currentDomain = getCurrentDomainName();
+        return domains.filter(domain => domain.domain !== currentDomain);
+    }
+
+    function getCurrentDomainHtml(domain) {
+        return `
+        <h1>${domain.name} : domain is for sale</h1>
+            <a href="${domain.link}" class="mb-1">
+                ${domain.name}
+                <span class="icon-arrow-right"></span>
+            </a>
+            <div class="text-sm">
+                ${domain.description}
+            </div>
+        </div>`;
+    }
+
+    function getOtherDomainHtml(domain) {
+        return `<div class="mb-4">
+            <a href="${domain.link}" class="mb-1">
+                ${domain.name}
+                <span class="icon-arrow-right"></span>
+            </a>
+            <div class="text-sm">
+                ${domain.description}
+            </div>
+        </div>`;
+    }
+
+    function sendOfferForDomain() {
+        const price = document.getElementById('offer-price').value || 0;
+        console.log('price', price || 0);
+        const offerPrice = parseInt(price);
+        const domain = getCurrentDomain();
+        const domainPrice = parseInt(domain.price || defaultPrice);
+        console.log('domainPrice', domainPrice);
+
+        if (offerPrice < domainPrice) {
+            const err = `I will only consider offers above ${domainPrice} ${defaultCurrency}`;
+            alert(err);
+            return;
+        }
+
+        console.log('Sending offer for domain: ' + price);
+        const subject = `Interested in buying ${domain.name} for ${price} ${defaultCurrency}`;
+        const email = `mailto:${defaultEmail}?subject=${encodeURIComponent(subject)}`;
+        //open a new tab
+        window.open(email, '_blank');
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentDomain = getCurrentDomain();
+        const otherDomains = getOtherDomains();
+
+        // Inject current domain HTML
+        const currentDomainHtml = document.getElementById('current-domain-html');
+        if (currentDomainHtml && currentDomain) {
+            currentDomainHtml.innerHTML = getCurrentDomainHtml(currentDomain);
+        }
+
+        // Inject min make offer in text box, set val
+        const minOfferPrice = currentDomain.price || defaultPrice;
+        document.getElementById('offer-price').setAttribute('min', minOfferPrice);
+        document.getElementById('offer-price').value = minOfferPrice;
+
+
+        // Inject other domains HTML
+        const otherDomainHtml = document.getElementById('other-domain-html');
+        if (otherDomainHtml) {
+            otherDomainHtml.innerHTML = otherDomains.map(getOtherDomainHtml).join('');
+        }
+    });
+</script>
+
+<body>
+    <div>
+        <main>
+            <section>
+                <div id="current-domain-html"></div>
+
+                <h2 class="border-b">Make an offer:</h2>
+                <div id="make-offer-html">If you are interested, please make an offer below</div>
+                <form id="make-offer-form">
+                    <input type="number" id="offer-price" placeholder="Offer price" />
+                    <p class="text-sm error" style="display: none;" id="offer-price-info"></p>
+                    <button type="button" onclick="sendOfferForDomain();">Send offer</button>
+                </form>
+            </section>
+            <br><br><br>
+            <section>
+                <h3 class="border-b">
+                    My Other Domain Names for Sale
+                </h3>
+
+                <div id="other-domain-html">
+                </div>
+
+                <div class="flex justify-center mt-4">
+                </div>
+            </section>
+        </main>
+    </div>
+    <div id="client-side-root"></div>
+    <footer class="text-sm border-t text-center mb-4">
+        <div>
+            Want to sell your domains? <a href="https://github.com/ssv445/domain-for-sale">Fork this repo</a> and add
+            host list of your domains on sale.
+        </div>
+        <div class="mt-4">
+            © Shyam Verma | <a href="https://github.com/ssv445/">Github</a> | <a href="https://x.com/ssv445">Twitter</a>
+        </div>
+        <div>
+
+        </div>
+    </footer>
+</body>
+
+</html>
