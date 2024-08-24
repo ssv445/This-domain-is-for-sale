@@ -1,5 +1,5 @@
 # This-domain-is-for-sale
-A simple and small webpage to put your domains on sale
+A simple and small webpage to put your domains on sale, example: [jpayplans.com](https://jpayplans.com/)
 
 ## Customizing Domain List
 
