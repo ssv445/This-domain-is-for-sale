@@ -38,6 +38,12 @@
     opacity: 65%;
   }
 
+  .checklinks a {
+    color: #666;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+
   img {
     max-width: 100%;
   }
