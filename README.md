@@ -1,4 +1,4 @@
-# This-domain-is-for-sale
+# Create Your Own domain-list for sale
 A simple and small webpage to put your domains on sale. 
 
 Example Link: [jpayplans.com](https://jpayplans.com/)
