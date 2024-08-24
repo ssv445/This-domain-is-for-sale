@@ -84,8 +84,8 @@
     }
 
     function getOtherDomains() {
-        const currentDomain = getCurrentDomainName();
-        return domains.filter(domain => domain.domain !== currentDomain);
+        const currentDomain = getCurrentDomain();
+        return domains.filter(domain => domain.domain !== currentDomain.domain);
     }
 
     function getCurrentDomainHtml(domain) {
