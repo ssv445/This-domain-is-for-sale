@@ -80,7 +80,7 @@
 
     function getCurrentDomain() {
         const currentDomain = getCurrentDomainName();
-        return domains.find(domain => domain.domain === currentDomain);
+        return domains.find(domain => domain.domain === currentDomain) || domains[0];
     }
 
     function getOtherDomains() {
