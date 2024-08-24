@@ -2,7 +2,7 @@
 A simple and small webpage to put your domains on sale. 
 
 Link: [jpayplans.com](https://jpayplans.com/)
-![Example Website](example-website.png)
+<img src="example-website.png" alt="Example Website" width="300">
 
 
 
