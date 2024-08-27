@@ -1,5 +1,8 @@
 # Create Your Own domain-list for sale
-A simple and small webpage to put your domains on sale. 
+- A simple and small webpage to put your domains on sale.
+- Its one pager, and let visitor send your a quote.
+- Its one HTML file only
+- You can host the same file on multiple domains, or point all the domains to one host.
 
 Example Link: [jpayplans.com](https://jpayplans.com/)
 
