@@ -185,6 +185,7 @@
     }
 </style>
 <script type="text/javascript">
+    const debug = false;
     const defaultEmail = 'shyam@readybytes.in';
     const defaultPrice = '1000';
     const defaultCurrency = 'USD';
@@ -243,13 +244,21 @@
     ];
 
     function getCurrentDomainName() {
-        console.log('Current Domain: ' + window.location.hostname);
+        debug && console.log('Current Domain: ' + window.location.hostname);
         return window.location.hostname || domains[0].domain;
     }
 
     function getCurrentDomain() {
         const currentDomain = getCurrentDomainName();
-        return domains.find(domain => domain.domain === currentDomain) || domains[0];
+
+        // get domain from url parameter named domain
+        const urlParams = new URLSearchParams(window.location.search);
+        // debug && console.log('urlParams', urlParams);
+        const domainParam = urlParams.get('domain') || currentDomain;
+        // debug && console.log('domainParam', domainParam);
+        const domain = domains.find(domain => domain.domain === domainParam) || domains[0];
+        // debug && console.log('domain', domain);
+        return domain;
     }
 
     function getOtherDomains() {
@@ -296,11 +305,11 @@
 
     function sendOfferForDomain() {
         const price = document.getElementById('offer-price').value || 0;
-        console.log('price', price || 0);
+        debug && console.log('price', price || 0);
         const offerPrice = parseInt(price);
         const domain = getCurrentDomain();
         const domainPrice = parseInt(domain.price || defaultPrice);
-        console.log('domainPrice', domainPrice);
+        debug && console.log('domainPrice', domainPrice);
 
         if (offerPrice < domainPrice) {
             const err = `I will only consider offers above ${domainPrice} ${defaultCurrency} `;
@@ -308,9 +317,9 @@
             return;
         }
 
-        console.log('Sending offer for domain: ' + price);
+        debug && console.log('Sending offer for domain: ' + price);
         const subject = `Interested in buying ${domain.name} for ${price} ${defaultCurrency} `;
-        const email = `mailto:${defaultEmail}?subject = ${encodeURIComponent(subject)}`;
+        const email = `mailto:${defaultEmail}?subject=${encodeURIComponent(subject)}`;
         //open a new tab
         window.open(email, '_blank');
         return true;
